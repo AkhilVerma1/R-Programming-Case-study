@@ -1,0 +1,190 @@
+---
+# a.	Find the name of the winning candidate from ‘Varanasi’
+# b.	Find the seats where margin percentage is less than 5 percent
+# c.	Find the winning candidate name where turnout is greater than 75 percent 
+# d.	Find the total number of seats where winning candidate is from Bharatiya Janta Party
+# e.	Find the results where state is Punjab and Create a csv file with detail of all the winning candidate for Bhartiya Janta Party
+
+---
+```{r}
+install.packages("sqldf")
+library(dplyr)
+library(sqldf)
+```
+
+```{r}
+votes = read.csv(file.choose(), stringsAsFactors = F)
+View(votes)
+votes
+```
+
+```{r}
+# a.	Find the name of the winning candidate from ‘Varanasi’
+votes %>%
+  filter(PC.Name == 'Varanasi') %>%
+    select(Winning.Candidate)
+```
+
+
+```{r}
+#  b.	Find the seats where margin percentage is less than 5 percent
+votes %>%
+  filter(as.numeric(substr(Margin..,0,nchar(Margin..)-1)) < 5) %>%
+    select(Margin..)
+
+```
+
+
+```{r}
+#Find the winning candidate name where turnout is greater than 75 percent 
+votes %>%
+  filter(Turnout > 75) %>%
+    select(Winning.Candidate)
+```
+
+
+```{r}
+# d.	Find the total number of seats where winning candidate is from Bharatiya Janta Party
+votes %>%
+  filter(Party == "Bharatiya Janta Party") %>%
+    summarise(Total_Seats = n())
+```
+
+
+```{r}
+# e.	Find the results where state is Punjab and Create a csv file with detail of all the winning candidate for Bhartiya Janta Party
+data <- votes %>%
+  filter(State == "Punjab", Party == "Bharatiya Janta Party")
+write.csv(data)
+```
+---
+# Use the movie ratings dataset
+
+# a.	Find the name of all the movies where release year is 2007
+# b.	Create a csv file with detail of all the movies where genre is comedy
+# c.	Find the detail of movie where movie name is “127 Hours”
+# d.	Find the mean, max and min of budget in this dataset
+# e.	Find genre where movie name is “Eagle Eye” and Find the name of movies where genre is Comedy and release year is 2009
+
+---
+
+```{r}
+movies = read.csv(file.choose(), stringsAsFactors = FALSE)
+View(movies)
+movies
+```
+
+
+```{r}
+# a.	Find the name of all the movies where release year is 2007
+colnames(movies)[6] = "Year"
+sqldf("select Film from movies where Year == 2007")
+```
+
+
+```{r}
+# b.	Create a csv file with detail of all the movies where genre is comedy
+data <- movies %>%
+  filter(Genre == "comedy")
+write.csv(data)
+```
+
+
+```{r}
+# c.	Find the detail of movie where movie name is “127 Hours”
+sqldf("select * from movies where Film == '127 Hours'")
+```
+
+
+```{r}
+# d.	Find the mean, max and min of budget in this dataset
+colnames(movies)[4] = "Budget"
+
+sqldf("select avg(Budget) as Average_Budget, max(Budget) as Maximum_Budget, min(Budget) as Minimum_Budget from movies")
+
+```
+
+
+```{r}
+# e.	Find genre where movie name is “Eagle Eye” and Find the name of movies where genre is Comedy and release year is 2009
+print(movies %>%
+  filter(Film == "Eagle Eye") %>%
+    select(Genre))
+print(movies %>%
+  filter(Genre == "Comedy", Year == 2009) %>%
+    select(Film))
+
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
